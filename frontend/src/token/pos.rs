@@ -15,6 +15,23 @@ impl fmt::Display for Pos {
     }
 }
 
+impl Pos {
+    pub fn update(&mut self, char: char) {
+        match char {
+            '\n' => self.new_line(),
+            _ => self.column += 1,
+        }
+
+        self.index += 1;
+    }
+
+    pub fn new_line(&mut self) {
+        self.line += 1;
+        self.column = 1;
+        self.line_start = self.index + 1;
+    }
+}
+
 impl Default for Pos {
     fn default() -> Self {
         Self {

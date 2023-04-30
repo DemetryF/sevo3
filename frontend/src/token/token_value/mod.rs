@@ -1,5 +1,11 @@
+mod literal;
+mod r#type;
+
 use std::fmt::{self, Display};
 
+pub use self::{literal::Literal, r#type::Type};
+
+#[derive(PartialEq, Debug)]
 pub enum TokenValue {
     // keywords
     As,
@@ -22,15 +28,17 @@ pub enum TokenValue {
     Semicolon,
     Colon,
     Arrow,
+    Comma,
 
     Assignment,
     PlusAssignment,
     MinusAssignment,
     StarAssignment,
-    SalshAssignment,
+    SlashAssignment,
 
     Or,
     And,
+    Not,
 
     NotEqual,
     Equal,
@@ -45,12 +53,12 @@ pub enum TokenValue {
     Star,
     Slash,
 
-    Not,
-
     // other
     Type(Type),
     Id(String),
     Literal(Literal),
+
+    EOF,
 }
 
 impl Display for TokenValue {
@@ -77,7 +85,7 @@ impl Display for TokenValue {
             TokenValue::PlusAssignment => write!(f, "+="),
             TokenValue::MinusAssignment => write!(f, "-="),
             TokenValue::StarAssignment => write!(f, "*="),
-            TokenValue::SalshAssignment => write!(f, "/="),
+            TokenValue::SlashAssignment => write!(f, "/="),
             TokenValue::Or => write!(f, "||"),
             TokenValue::And => write!(f, "&&"),
             TokenValue::NotEqual => write!(f, "!="),
@@ -90,35 +98,12 @@ impl Display for TokenValue {
             TokenValue::Minus => write!(f, "-"),
             TokenValue::Star => write!(f, "*"),
             TokenValue::Slash => write!(f, "/"),
+            TokenValue::Comma => write!(f, ","),
             TokenValue::Not => write!(f, "!"),
             TokenValue::Type(ty) => write!(f, "{ty}"),
             TokenValue::Id(id) => write!(f, "{id}"),
             TokenValue::Literal(literal) => write!(f, "{literal}"),
-        }
-    }
-}
-
-#[rustfmt::skip]
-#[derive(strum_macros::Display)]
-pub enum Type {
-    U64,    I64,    F64,
-    U32,    I32,    F32,
-    U16,    I16,
-    U8,     I8,     Bool,
-}
-
-pub enum Literal {
-    Bool(bool),
-    Integer(i64),
-    Float(f64),
-}
-
-impl fmt::Display for Literal {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Literal::Bool(bool) => write!(f, "{bool}"),
-            Literal::Integer(int) => write!(f, "{int}"),
-            Literal::Float(float) => write!(f, "{float}"),
+            TokenValue::EOF => write!(f, "end of input"),
         }
     }
 }

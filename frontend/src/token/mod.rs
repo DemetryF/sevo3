@@ -1,12 +1,15 @@
 mod pos;
-mod value;
+mod token_value;
+
+use derive_more::Constructor;
 
 pub use self::{
     pos::Pos,
-    value::{Literal, TokenValue, Type},
+    token_value::{Literal, TokenValue, Type},
 };
 
+#[derive(Constructor)]
 pub struct Token {
-    pub pos: Pos,
     pub value: TokenValue,
+    pub pos: Pos,
 }
