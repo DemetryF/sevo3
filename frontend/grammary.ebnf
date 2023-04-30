@@ -83,7 +83,7 @@ fact ::= call | parenthesis | atom
 
 call ::= ID '(' cargs ')'
 parenthesis ::= '(' expr ')'
-atom ::= ID | NUM
+atom ::= ID | NUM | BOOL
 
 // other
 
