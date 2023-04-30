@@ -1,0 +1,98 @@
+code ::= statement*
+
+// statements
+
+statement ::= if_statement
+            | while_statement
+            | declare_statement
+            | function_statement
+            | expr_statement
+
+if_statement ::= "if" expr block
+                 ("else" "if" expr block)*
+                 ("else" block)?
+
+while_statement ::= "while" expr block
+
+declare_statement ::= "let" ("mut")? ID 
+                      ":" type
+                      ("=" expr)? ";"
+
+function_statement ::= "fn" ID "(" f_args ")" ("->" type)? block
+
+expr_statement ::= assign_expr
+
+// auxiliary statements
+
+break_statement ::= "break" ";"
+continue_statement ::= "continue" ";"
+return_statement ::= "return" expr? ";"
+
+// expr
+expr ::= or
+
+// operators
+assign_expr ::=
+      ID '='  expr
+    | ID '+=' expr
+    | ID '-=' expr
+    | ID '*=' expr
+    | ID '/=' expr
+    | expr
+
+or_expr ::=
+      or_expr '||' and_expr
+    | and_expr
+
+and_expr ::=
+      and_expr '&&' equal_expr
+    | equal_expr
+
+equal_expr ::=
+      equal_expr '==' cmp_expr
+    | equal_expr '!=' cmp_expr
+    | cmp_expr
+
+cmp_expr ::=
+      cmp_expr '>=' add_expr
+    | cmp_expr '<=' add_expr
+    | cmp_expr '>' add_expr
+    | cmp_expr '<' add_expr
+    | add_expr
+
+add_expr ::=
+      add_expr '+' mul_expr
+    | add_expr '-' mul_expr
+    | mul_expr
+
+mul_expr ::=
+      mul_expr '*' as_expr
+    | mul_expr '/' as_expr
+    | as_expr
+
+as_expr ::=
+      unary_expr 'as' type
+    | unary_expr
+
+unary_expr ::= 
+      '!' fact
+    | '-' fact
+    | fact
+
+fact ::= call | parenthesis | atom
+
+call ::= ID '(' cargs ')'
+parenthesis ::= '(' expr ')'
+atom ::= ID | NUM
+
+// other
+
+type ::= 'u64' | 'u32' | 'u16' | 'u8'
+       | 'i64' | 'i32' | 'i16' | 'i8'
+       | 'f64' | 'f32'
+       | 'bool'
+
+fargs ::= (farg (',' farg)*)?
+farg ::= ID ':' type
+
+cargs ::= (expr (',' expr)*)?
