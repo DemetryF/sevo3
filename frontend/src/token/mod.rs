@@ -8,7 +8,7 @@ pub use self::{
     token_value::{Literal, TokenValue, Type},
 };
 
-#[derive(Constructor)]
+#[derive(Constructor, Debug)]
 pub struct Token {
     pub value: TokenValue,
     pub pos: Pos,

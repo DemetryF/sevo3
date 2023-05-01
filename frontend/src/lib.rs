@@ -1,6 +1,11 @@
-mod error;
+pub mod ast;
+pub mod error;
+pub mod token;
+
 mod lexer;
-mod token;
+mod token_stream;
 
 pub use error::{Error, ErrorKind};
-pub use token::{Literal, Pos, Token, TokenValue, Type};
+
+use token::{Literal, Pos, Token, TokenValue, Type};
+use token_stream::TokenStream;
