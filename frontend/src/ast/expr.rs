@@ -1,5 +1,5 @@
 use crate::ast::Parse;
-use crate::ast::{AssignOp, BinOp, Error, Id, TokenStream, Type, UnOp};
+use crate::ast::{BinOp, Error, Id, TokenStream, Type, UnOp};
 use crate::token::Literal;
 
 pub enum Expr {
@@ -10,11 +10,6 @@ pub enum Expr {
     },
     Prefix {
         op: UnOp,
-        rhs: Box<Self>,
-    },
-    Assignment {
-        lhs: Id,
-        op: AssignOp,
         rhs: Box<Self>,
     },
     Cast {

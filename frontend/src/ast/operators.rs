@@ -6,7 +6,7 @@ macro_rules! operators {
         $(
             $GroupName:ident {
                 $(
-                    $OpName:ident: $ser:expr, $token_alt:pat, $power:expr;
+                    $OpName:ident: $ser:expr, $token_alt:ident, $power:expr;
                 )*
             }
         ),*
@@ -25,7 +25,7 @@ macro_rules! operators {
                 fn try_from(token: Token) -> Result<Self, Self::Error> {
                     let op = match token.value {
                         $(
-                            $token_alt => Self::$OpName,
+                            TokenValue::$token_alt => Self::$OpName,
                         )*
 
                         _ => return Err(Error::unexpected_token(token)),
@@ -59,36 +59,33 @@ macro_rules! operators {
 }
 
 operators![
-    AssignOp {
-        Assign:     "=",    TokenValue::Assignment,         (2, 1);
-        AddAssign:  "+=",   TokenValue::PlusAssignment,     (2, 1);
-        SubAssign:  "-=",   TokenValue::MinusAssignment,    (2, 1);
-        MulAssign:  "*=",   TokenValue::StarAssignment,     (2, 1);
-        DivAssign:  "/=",   TokenValue::SlashAssignment,    (2, 1);
-    },
-
     BinOp {
+        Assign:     "=",    Assignment,         (2, 1);
+        AddAssign:  "+=",   PlusAssignment,     (2, 1);
+        SubAssign:  "-=",   MinusAssignment,    (2, 1);
+        MulAssign:  "*=",   StarAssignment,     (2, 1);
+        DivAssign:  "/=",   SlashAssignment,    (2, 1);
 
-        Or:         "||",   TokenValue::Or,                 (3, 4);
-        And:        "&&",   TokenValue::And,                (5, 6);
+        Or:         "||",   Or,                 (3, 4);
+        And:        "&&",   And,                (5, 6);
 
-        EQ:         "==",   TokenValue::Equal,              (7, 8);
-        NE:         "!=",   TokenValue::NotEqual,           (7, 8);
-        GE:         ">=",   TokenValue::GreaterOrEqual,     (9, 10);
-        GT:         ">",    TokenValue::Greater,            (9, 10);
-        LE:         "<=",   TokenValue::LessOrEqual,        (9, 10);
-        LT:         "<",    TokenValue::Less,               (9, 10);
+        EQ:         "==",   Equal,              (7, 8);
+        NE:         "!=",   NotEqual,           (7, 8);
+        GE:         ">=",   GreaterOrEqual,     (9, 10);
+        GT:         ">",    Greater,            (9, 10);
+        LE:         "<=",   LessOrEqual,        (9, 10);
+        LT:         "<",    Less,               (9, 10);
 
-        Add:        "+",    TokenValue::Plus,               (11, 12);
-        Sub:        "-",    TokenValue::Minus,              (11, 12);
-        Mul:        "*",    TokenValue::Star,               (13, 14);
-        Div:        "/",    TokenValue::Slash,              (13, 14);
+        Add:        "+",    Plus,               (11, 12);
+        Sub:        "-",    Minus,              (11, 12);
+        Mul:        "*",    Star,               (13, 14);
+        Div:        "/",    Slash,              (13, 14);
 
-        Cast:       "as",   TokenValue::As,                 (15, 16);
+        Cast:       "as",   As,                 (15, 16);
     },
 
     UnOp {
-        Not:        "!",  TokenValue::Not,                  (0, 15);
-        Neg:        "-",  TokenValue::Minus,                (0, 15);
+        Not:        "!",    Not,                (0, 15);
+        Neg:        "-",    Minus,              (0, 15);
     }
 ];
