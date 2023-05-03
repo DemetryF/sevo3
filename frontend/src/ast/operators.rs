@@ -1,4 +1,4 @@
-use crate::token::{Token, TokenValue};
+use crate::token::TokenValue;
 
 macro_rules! operators {
     (
@@ -18,11 +18,11 @@ macro_rules! operators {
                 )*
             }
 
-            impl TryFrom<Token> for $GroupName {
+            impl TryFrom<TokenValue> for $GroupName {
                 type Error = ();
 
-                fn try_from(token: Token) -> Result<Self, Self::Error> {
-                    match token.value {
+                fn try_from(value: TokenValue) -> Result<Self, Self::Error> {
+                    match value {
                         $(
                             TokenValue::$token_alt => Ok(Self::$OpName),
                         )*
