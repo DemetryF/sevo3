@@ -101,12 +101,17 @@ fn expr_bp(current_bp: usize, token_stream: &mut TokenStream) -> Result<Expr, Er
         token_stream.next()?;
 
         lhs = {
-            let rhs = expr_bp(r_bp, token_stream)?;
+            let lhs = Box::new(lhs);
 
-            Expr::Infix {
-                lhs: Box::new(lhs),
-                op,
-                rhs: Box::new(rhs),
+            if op == BinOp::Cast {
+                let ty = Type::parse(token_stream)?;
+
+                Expr::Cast { lhs, ty }
+            } else {
+                let rhs = expr_bp(r_bp, token_stream)?;
+                let rhs = Box::new(rhs);
+
+                Expr::Infix { lhs, op, rhs }
             }
         }
     }
