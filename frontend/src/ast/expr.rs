@@ -34,7 +34,7 @@ impl Parse for Expr {
     }
 }
 
-fn expr_bp(bin_bp: usize, token_stream: &mut TokenStream) -> Result<Expr, Error> {
+fn expr_bp(current_bp: usize, token_stream: &mut TokenStream) -> Result<Expr, Error> {
     let mut lhs = {
         let token = token_stream.next_and_take()?;
 
@@ -74,9 +74,42 @@ fn expr_bp(bin_bp: usize, token_stream: &mut TokenStream) -> Result<Expr, Error>
                 expr
             }
 
-            _ => return Err(Error::unexpected_token(token)),
+            _ => {
+                if let Ok(op) = UnOp::try_from(&token.value) {
+                    token_stream.next()?;
+
+                    let (_, r_bp) = op.power();
+
+                    let rhs = expr_bp(r_bp, token_stream)?;
+                    let rhs = Box::new(rhs);
+
+                    Expr::Prefix { op, rhs }
+                } else {
+                    return Err(Error::unexpected_token(token));
+                }
+            }
         }
     };
 
-    todo!()
+    while let Ok(op) = BinOp::try_from(&token_stream.current().value) {
+        let (l_bp, r_bp) = op.power();
+
+        if l_bp < current_bp {
+            break;
+        }
+
+        token_stream.next()?;
+
+        lhs = {
+            let rhs = expr_bp(r_bp, token_stream)?;
+
+            Expr::Infix {
+                lhs: Box::new(lhs),
+                op,
+                rhs: Box::new(rhs),
+            }
+        }
+    }
+
+    Ok(lhs)
 }
