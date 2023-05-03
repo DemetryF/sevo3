@@ -1,5 +1,4 @@
 use crate::token::{Token, TokenValue};
-use crate::Error;
 
 macro_rules! operators {
     (
@@ -20,18 +19,16 @@ macro_rules! operators {
             }
 
             impl TryFrom<Token> for $GroupName {
-                type Error = Error;
+                type Error = ();
 
                 fn try_from(token: Token) -> Result<Self, Self::Error> {
-                    let op = match token.value {
+                    match token.value {
                         $(
-                            TokenValue::$token_alt => Self::$OpName,
+                            TokenValue::$token_alt => Ok(Self::$OpName),
                         )*
 
-                        _ => return Err(Error::unexpected_token(token)),
-                    };
-
-                    Ok(op)
+                        _ => Err(()),
+                    }
                 }
             }
 
