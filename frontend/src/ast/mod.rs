@@ -6,7 +6,12 @@ mod utils;
 
 use crate::{Error, TokenStream};
 
-pub use self::{block::Block, expr::Expr, statement::*, utils::Id};
+pub use self::{
+    block::Block,
+    expr::{Atom, Expr},
+    statement::*,
+    utils::Id,
+};
 pub use crate::token::{Pos, Type};
 pub use operators::{BinOp, UnOp};
 

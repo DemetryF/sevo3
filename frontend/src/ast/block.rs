@@ -4,6 +4,7 @@ use crate::{Error, TokenStream};
 
 use super::Statement;
 
+#[derive(PartialEq, Debug)]
 pub struct Block {
     pub statements: Vec<Statement>,
 }

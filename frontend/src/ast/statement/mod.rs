@@ -7,6 +7,8 @@ mod if_statement;
 mod return_statement;
 mod while_statement;
 
+use derive_enum_from_into::EnumTryInto;
+
 use crate::{token::TokenValue, Error, TokenStream};
 
 pub use self::{
@@ -22,6 +24,7 @@ pub use self::{
 
 use super::Parse;
 
+#[derive(EnumTryInto, PartialEq, Debug)]
 pub enum Statement {
     Break(BreakStatement),
     Continue(ContinueStatement),

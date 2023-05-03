@@ -1,5 +1,6 @@
 use crate::{ast::Parse, token::TokenValue, Error, TokenStream};
 
+#[derive(PartialEq, Debug)]
 pub struct BreakStatement;
 
 impl Parse for BreakStatement {

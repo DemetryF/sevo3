@@ -10,13 +10,9 @@ pub struct TokenStream<'code> {
 impl<'code> TokenStream<'code> {
     pub fn new(code: &'code str) -> Result<Self, Error> {
         let mut lexer = Lexer::new(code);
+        let current = lexer.next_token()?;
 
-        let token_stream = Self {
-            lexer: Lexer::new(code),
-            current: lexer.next_token()?,
-        };
-
-        Ok(token_stream)
+        Ok(Self { lexer, current })
     }
 
     pub fn current(&self) -> &Token {
@@ -31,6 +27,12 @@ impl<'code> TokenStream<'code> {
 
     pub fn next_and_take(&mut self) -> Result<Token, Error> {
         let mut token = self.lexer.next_token()?;
+
+        println!(
+            "next. old: {}, new: {}",
+            &self.current().value,
+            &token.value,
+        );
 
         mem::swap(&mut self.current, &mut token);
 

@@ -3,6 +3,7 @@ pub mod error;
 pub mod token;
 
 mod lexer;
+mod tests;
 mod token_stream;
 
 pub use error::{Error, ErrorKind};

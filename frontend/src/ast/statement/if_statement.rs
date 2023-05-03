@@ -2,6 +2,7 @@ use crate::ast::{Block, Expr, Parse};
 use crate::token::TokenValue;
 use crate::{Error, TokenStream};
 
+#[derive(PartialEq, Debug)]
 pub struct IfStatement {
     pub condition: Expr,
     pub body: Block,
@@ -9,6 +10,7 @@ pub struct IfStatement {
     pub else_body: Option<Block>,
 }
 
+#[derive(PartialEq, Debug)]
 pub struct Branch {
     pub condition: Expr,
     pub body: Block,

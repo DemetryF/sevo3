@@ -2,6 +2,7 @@ use crate::ast::{Block, Expr, Parse};
 use crate::token::TokenValue;
 use crate::{Error, TokenStream};
 
+#[derive(PartialEq, Debug)]
 pub struct WhileStatement {
     pub condition: Expr,
     pub body: Block,

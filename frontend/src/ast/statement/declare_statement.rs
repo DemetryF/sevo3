@@ -2,6 +2,7 @@ use crate::ast::{Expr, Id, Parse, Type};
 use crate::token::TokenValue;
 use crate::{Error, TokenStream};
 
+#[derive(PartialEq, Debug)]
 pub struct DeclareStatement {
     pub id: Id,
     pub is_mut: bool,

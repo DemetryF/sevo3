@@ -2,6 +2,7 @@ use crate::ast::Parse;
 use crate::ast::{BinOp, Error, Id, TokenStream, Type, UnOp};
 use crate::token::{Literal, TokenValue};
 
+#[derive(PartialEq, Debug)]
 pub enum Expr {
     Infix {
         lhs: Box<Self>,
@@ -23,6 +24,7 @@ pub enum Expr {
     Atom(Atom),
 }
 
+#[derive(Debug, PartialEq)]
 pub enum Atom {
     Id(Id),
     Literal(Literal),
@@ -36,7 +38,9 @@ impl Parse for Expr {
 
 fn expr_bp(current_bp: usize, token_stream: &mut TokenStream) -> Result<Expr, Error> {
     let mut lhs = {
+        println!("{}", &token_stream.current().value);
         let token = token_stream.next_and_take()?;
+        println!("{}", &token_stream.current().value);
 
         match token.value {
             TokenValue::Literal(literal) => Expr::Atom(Atom::Literal(literal)),
@@ -76,8 +80,6 @@ fn expr_bp(current_bp: usize, token_stream: &mut TokenStream) -> Result<Expr, Er
 
             _ => {
                 if let Ok(op) = UnOp::try_from(&token.value) {
-                    token_stream.next()?;
-
                     let (_, r_bp) = op.power();
 
                     let rhs = expr_bp(r_bp, token_stream)?;

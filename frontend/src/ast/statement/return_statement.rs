@@ -2,6 +2,7 @@ use crate::ast::{Expr, Parse};
 use crate::token::TokenValue;
 use crate::{Error, TokenStream};
 
+#[derive(PartialEq, Debug)]
 pub struct ReturnStatement {
     pub expr: Option<Expr>,
 }

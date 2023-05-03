@@ -2,6 +2,7 @@ use crate::ast::{Block, Id, Parse, Type};
 use crate::token::TokenValue;
 use crate::{Error, TokenStream};
 
+#[derive(PartialEq, Debug)]
 pub struct FunctionStatement {
     pub id: Id,
     pub args: Vec<FunctionArg>,
@@ -9,6 +10,7 @@ pub struct FunctionStatement {
     pub body: Block,
 }
 
+#[derive(PartialEq, Debug)]
 pub struct FunctionArg {
     pub id: Id,
     pub ty: Type,
