@@ -38,9 +38,7 @@ impl Parse for Expr {
 
 fn expr_bp(current_bp: usize, token_stream: &mut TokenStream) -> Result<Expr, Error> {
     let mut lhs = {
-        println!("{}", &token_stream.current().value);
         let token = token_stream.next_and_take()?;
-        println!("{}", &token_stream.current().value);
 
         match token.value {
             TokenValue::Literal(literal) => Expr::Atom(Atom::Literal(literal)),

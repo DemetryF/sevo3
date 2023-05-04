@@ -12,7 +12,8 @@ pub use self::{
     statement::*,
     utils::Id,
 };
-pub use crate::token::{Pos, Type};
+
+pub use crate::token::{Literal, Pos, Type};
 pub use operators::{BinOp, UnOp};
 
 pub trait Parse: Sized {

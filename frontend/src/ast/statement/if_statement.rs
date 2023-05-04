@@ -26,6 +26,8 @@ impl Parse for IfStatement {
         let mut elseif = Vec::new();
         let mut else_body = None;
 
+        // println!("<if>{}", token_stream.current().value);
+
         while token_stream.try_consume(TokenValue::Else)? {
             if token_stream.try_consume(TokenValue::If)? {
                 let condition = Expr::parse(token_stream)?;

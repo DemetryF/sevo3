@@ -21,8 +21,6 @@ impl Parse for Block {
             statements.push(statement);
         }
 
-        token_stream.consume(TokenValue::RBrace)?;
-
         Ok(Block { statements })
     }
 }

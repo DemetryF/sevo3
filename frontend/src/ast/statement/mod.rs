@@ -45,6 +45,7 @@ impl Parse for Statement {
                 TokenValue::Fn => Statement::Function(FunctionStatement::parse(token_stream)?),
                 TokenValue::Return => Statement::Return(ReturnStatement::parse(token_stream)?),
                 TokenValue::While => Statement::While(WhileStatement::parse(token_stream)?),
+                TokenValue::If => Statement::If(IfStatement::parse(token_stream)?),
 
                 TokenValue::Continue => {
                     Statement::Continue(ContinueStatement::parse(token_stream)?)

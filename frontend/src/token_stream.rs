@@ -20,19 +20,15 @@ impl<'code> TokenStream<'code> {
     }
 
     pub fn next(&mut self) -> Result<(), Error> {
+        println!("{}", self.current().value);
         self.current = self.lexer.next_token()?;
 
         Ok(())
     }
 
     pub fn next_and_take(&mut self) -> Result<Token, Error> {
+        println!("{}", self.current().value);
         let mut token = self.lexer.next_token()?;
-
-        println!(
-            "next. old: {}, new: {}",
-            &self.current().value,
-            &token.value,
-        );
 
         mem::swap(&mut self.current, &mut token);
 
@@ -40,7 +36,11 @@ impl<'code> TokenStream<'code> {
     }
 
     pub fn check(&self, value: TokenValue) -> bool {
-        self.current().value == value
+        !self.is_end() && self.current().value == value
+    }
+
+    pub fn is_end(&self) -> bool {
+        self.current().value == TokenValue::EOF
     }
 
     pub fn consume(&mut self, value: TokenValue) -> Result<(), Error> {

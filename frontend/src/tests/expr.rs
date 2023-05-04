@@ -1,63 +1,28 @@
-#[allow(unused)]
-use crate::{ast::*, token::Literal, token_stream::TokenStream};
+use crate::ast::*;
+use crate::TokenStream;
+use crate::{infix, int, prefix};
 
-#[allow(unused)]
-macro_rules! int {
-    ($value:literal) => {
-        Expr::Atom(Atom::Literal(Literal::Integer($value)))
-    };
-}
-
-#[allow(unused)]
-macro_rules! infix {
-    ($lhs:expr, $Op:ident, $rhs:expr) => {
-        Expr::Infix {
-            lhs: Box::new($lhs),
-            op: BinOp::$Op,
-            rhs: Box::new($rhs),
-        }
-    };
-}
-
-#[allow(unused)]
-macro_rules! prefix {
-    ($Op:ident, $rhs:expr) => {
-        Expr::Prefix {
-            op: UnOp::$Op,
-            rhs: Box::new($rhs),
-        }
-    };
-}
-
-macro_rules! parser_tests {
+macro_rules! expr_tests {
     (
-        group $group:ident($Type:ident);
         $(
             $test_name:ident: $input:literal => $expected:expr,
         )*
     ) => {
-        #[cfg(test)]
-        pub mod $group {
-            use super::*;
-
             $(
                 #[test]
                 fn $test_name() {
                     let mut token_stream = TokenStream::new($input).unwrap();
 
                     assert_eq!(
-                        $Type::parse(&mut token_stream).unwrap(),
-                        $Type::try_from($expected).unwrap()
+                        Expr::parse(&mut token_stream).unwrap(),
+                        Expr::try_from($expected).unwrap()
                     );
                 }
             )*
-        }
     };
 }
 
-parser_tests![
-    group expr(Expr);
-
+expr_tests![
     arithmetic:
         "-1 + 2 * 3" => infix!(
             prefix!(Neg, int!(1)),
