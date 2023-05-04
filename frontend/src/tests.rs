@@ -78,4 +78,17 @@ parser_tests![
             Or,
             infix!(int!(2), And, int!(3))
         ),
+
+    cast:
+        "1 as f32" => Expr::Cast {
+            lhs: Box::new(int!(1)),
+            ty: Type::F32,
+        },
+
+    parenthesis:
+        "1 * (2 + 3)" => infix!(
+            int!(1),
+            Mul,
+            infix!(int!(2), Add, int!(3))
+        ),
 ];
