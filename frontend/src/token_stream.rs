@@ -1,6 +1,10 @@
 use std::mem;
 
-use crate::{lexer::Lexer, Error, Token, TokenValue};
+use crate::{
+    lexer::Lexer,
+    token::{Token, TokenValue},
+    Error,
+};
 
 pub struct TokenStream<'code> {
     lexer: Lexer<'code>,

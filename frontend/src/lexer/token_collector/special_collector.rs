@@ -1,6 +1,6 @@
 use crate::{
     lexer::{code_stream::CodeStream, TokenCollector},
-    TokenValue,
+    token::TokenValue,
 };
 
 pub struct SpecialCollector;

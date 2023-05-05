@@ -1,4 +1,4 @@
-use crate::TokenValue;
+use crate::token::TokenValue;
 
 #[rustfmt::skip]
 #[derive(strum_macros::Display, PartialEq, Debug)]

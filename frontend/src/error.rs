@@ -1,6 +1,6 @@
 use derive_more::Constructor;
 
-use crate::{Pos, Token, TokenValue};
+use crate::token::{Pos, Token, TokenValue};
 
 #[derive(Constructor, Debug)]
 pub struct Error {

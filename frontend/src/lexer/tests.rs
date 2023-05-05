@@ -1,4 +1,7 @@
-use crate::{lexer::Lexer, Literal, TokenValue, Type};
+use crate::{
+    lexer::Lexer,
+    token::{Literal, TokenValue, Type},
+};
 
 macro_rules! lexer_tests {
     (

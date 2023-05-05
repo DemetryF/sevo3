@@ -2,7 +2,7 @@ use parse_int::parse;
 
 use crate::{
     lexer::{CodeStream, TokenCollector},
-    Literal, TokenValue,
+    token::{Literal, TokenValue},
 };
 
 const RADIX_PREFIX_LENGTH: usize = 2;

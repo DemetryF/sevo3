@@ -2,8 +2,6 @@
 use crate::{ast::*, int, TokenStream};
 
 #[cfg(test)]
-mod declare_statement;
-#[cfg(test)]
 mod expr;
 #[cfg(test)]
 mod if_statement;

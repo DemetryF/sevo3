@@ -1,6 +1,6 @@
 use std::fmt;
 
-use crate::TokenValue;
+use crate::token::TokenValue;
 
 #[derive(PartialEq, Debug)]
 pub enum Literal {

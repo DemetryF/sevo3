@@ -1,4 +1,4 @@
-use crate::Pos;
+use crate::token::Pos;
 
 pub struct CodeStream<'code> {
     code: &'code str,

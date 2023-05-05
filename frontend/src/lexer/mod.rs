@@ -5,7 +5,10 @@ mod token_collector;
 #[cfg(test)]
 mod tests;
 
-use crate::{Error, ErrorKind, Pos, Token, TokenValue};
+use crate::{
+    token::{Pos, Token, TokenValue},
+    Error, ErrorKind,
+};
 
 use self::{
     code_stream::CodeStream,

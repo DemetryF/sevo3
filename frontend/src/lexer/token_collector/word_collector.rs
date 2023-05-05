@@ -1,6 +1,6 @@
 use crate::{
     lexer::{CodeStream, TokenCollector},
-    Literal, TokenValue, Type,
+    token::{Literal, TokenValue, Type},
 };
 
 pub struct WordCollector;
