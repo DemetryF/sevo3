@@ -24,14 +24,12 @@ impl<'code> TokenStream<'code> {
     }
 
     pub fn next(&mut self) -> Result<(), Error> {
-        println!("{}", self.current().value);
         self.current = self.lexer.next_token()?;
 
         Ok(())
     }
 
     pub fn next_and_take(&mut self) -> Result<Token, Error> {
-        println!("{}", self.current().value);
         let mut token = self.lexer.next_token()?;
 
         mem::swap(&mut self.current, &mut token);

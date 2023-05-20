@@ -1,7 +1,7 @@
 use crate::token::TokenValue;
 
 #[rustfmt::skip]
-#[derive(strum_macros::Display, PartialEq, Debug)]
+#[derive(strum_macros::Display, PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Type {
     U64,    I64,    F64,
     U32,    I32,    F32,
@@ -43,5 +43,25 @@ impl TryFrom<&str> for Type {
 impl From<Type> for TokenValue {
     fn from(value: Type) -> Self {
         TokenValue::Type(value)
+    }
+}
+
+impl Type {
+    pub fn is_integer(&self) -> bool {
+        matches!(
+            self,
+            Type::U64
+                | Type::I64
+                | Type::U32
+                | Type::I32
+                | Type::U16
+                | Type::I16
+                | Type::U8
+                | Type::I8
+        )
+    }
+
+    pub fn is_float(&self) -> bool {
+        matches!(self, Type::F64 | Type::F32)
     }
 }

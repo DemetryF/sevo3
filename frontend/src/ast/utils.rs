@@ -1,7 +1,7 @@
 use crate::ast::{Parse, Pos, Type};
 use crate::{token::TokenValue, Error, TokenStream};
 
-#[derive(PartialEq, Debug)]
+#[derive(Clone, PartialEq, Debug)]
 pub struct Id {
     pub value: String,
     pub pos: Pos,
