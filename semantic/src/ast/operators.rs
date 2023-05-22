@@ -2,6 +2,7 @@ use frontend::ast;
 
 pub use ast::UnOp;
 
+#[derive(Clone, Copy)]
 pub enum BinOp {
     Add,
     Sub,
@@ -19,6 +20,7 @@ pub enum BinOp {
     LT,
 }
 
+#[derive(Clone, Copy)]
 pub enum AssignOp {
     Assign,
     AddAssign,
@@ -61,7 +63,7 @@ impl TryFrom<ast::BinOp> for AssignOp {
             ast::BinOp::MulAssign => Ok(Self::MulAssign),
             ast::BinOp::DivAssign => Ok(Self::DivAssign),
 
-            _ => Err(())
+            _ => Err(()),
         }
     }
 }
