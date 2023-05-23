@@ -27,6 +27,8 @@ pub enum ErrorKind {
 
     DuplicateFunctionArguments(String),
 
+    ReturnOutsideFunction,
+
     BreakOutsideCycle,
     ContinueOutsideCycle,
     UnexpectedAssignment,
@@ -104,5 +106,14 @@ impl Error {
         let kind = ErrorKind::DuplicateFunctionArguments(id.value);
 
         Self { kind, pos: id.pos }
+    }
+
+    pub fn return_outside_function() -> Self {
+        let kind = ErrorKind::ReturnOutsideFunction;
+
+        Self {
+            kind,
+            pos: Pos::default(),
+        }
     }
 }

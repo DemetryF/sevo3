@@ -19,6 +19,7 @@ pub struct Function {
 #[derive(Default)]
 pub struct Functions {
     data: Scope<FunctionId>,
+    last: Option<FunctionId>,
 }
 
 impl Functions {
@@ -36,5 +37,9 @@ impl Functions {
         self.data.add(id.value, function_id.clone());
 
         Ok(function_id)
+    }
+
+    pub fn last(&self) -> Option<FunctionId> {
+        self.last.clone()
     }
 }
