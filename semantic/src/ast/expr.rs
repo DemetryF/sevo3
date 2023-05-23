@@ -51,7 +51,7 @@ impl Semanticize for ast::Expr {
             ast::Expr::Infix { lhs, op, rhs } => {
                 if let Ok(op) = AssignOp::try_from(op) {
                     let ast::Expr::Atom(ast::Atom::Id(id)) = *lhs else {
-                        return Err(Error::unexpected_assignment());
+                        return Err(Error::expected_lvalue());
                     };
 
                     let Some(variable_id) = env.variables.get(&id) else {
