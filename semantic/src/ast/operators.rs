@@ -20,6 +20,23 @@ pub enum BinOp {
     LT,
 }
 
+impl BinOp {
+    pub fn is_arithm(self) -> bool {
+        matches!(self, Self::Add | Self::Sub | Self::Mul | Self::Div)
+    }
+
+    pub fn is_comparison(self) -> bool {
+        matches!(
+            self,
+            Self::EQ | Self::NE | Self::GE | Self::GT | Self::LT | Self::LE
+        )
+    }
+
+    pub fn is_logic(self) -> bool {
+        matches!(self, Self::Or | Self::And)
+    }
+}
+
 #[derive(Clone, Copy)]
 pub enum AssignOp {
     Assign,
